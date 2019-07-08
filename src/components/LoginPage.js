@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { GoogleLogin } from "react-google-login";
-import { userActions, login } from '../actions';
+import { userActions } from '../actions';
 
 class LoginPage extends Component {
     constructor(props) {
