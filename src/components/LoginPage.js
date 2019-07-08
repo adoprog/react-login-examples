@@ -40,8 +40,11 @@ class LoginPage extends Component {
     }
 
     googleResponse(response) {
-        const { dispatch } = this.props;
-        dispatch(userActions.ssoLogin(response));
+        if(response.token) {
+            const { dispatch } = this.props;
+            dispatch(userActions.ssoLogin(response));
+        }
+
         console.log(response);
     } 
 
