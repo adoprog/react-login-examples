@@ -24,6 +24,7 @@
   "scripts": {
     "prestart": "npm install",
     "start": "react-scripts start",
+    "build": "react-scripts build",
     "pretest": "npm install",
     "test": "react-scripts test --verbose --env=jsdom --testResultsProcessor ./node_modules/jest-junit-reporter"
   },
