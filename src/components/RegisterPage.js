@@ -34,7 +34,6 @@ class RegisterPage extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        debugger;
         this.setState({ submitted: true });
         const { user } = this.state;
         const { dispatch } = this.props;

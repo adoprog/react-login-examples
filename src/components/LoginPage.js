@@ -2,7 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import { GoogleLogin } from "react-google-login";
 import { userActions, login } from '../actions';
 
 class LoginPage extends Component {
@@ -20,6 +20,7 @@ class LoginPage extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.googleResponse = this.googleResponse.bind(this);
     }
 
     handleChange(e) {
@@ -38,8 +39,15 @@ class LoginPage extends Component {
         }
     }
 
+    googleResponse(response) {
+        const { dispatch } = this.props;
+        dispatch(userActions.ssoLogin(response));
+        console.log(response);
+    } 
+
     render() {
-        const { username, password, submitted } = this.state;
+        const { username, password, submitted } = this.state;        
+
         return (
             <div className="col-md-6 col-md-offset-3">
                 <h2>Login</h2>
@@ -62,6 +70,15 @@ class LoginPage extends Component {
                         <button className="btn btn-primary">Login</button> <Link to="/register" className="btn btn-link">Register</Link>
                     </div>
                 </form>
+
+                <GoogleLogin
+                    clientId={
+                    "7302017896-hdp9on87llomq0am953a9lfjsekg8ug0.apps.googleusercontent.com"
+                    }
+                    buttonText="Google Login"
+                    onSuccess={this.googleResponse}
+                    onFailure={this.googleResponse}
+                />
             </div>
         );
     }

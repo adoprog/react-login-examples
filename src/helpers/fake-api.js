@@ -25,7 +25,21 @@ export function configureFakeAPI() {
 
                     return;
                 }
+                
+                if (url.endsWith('/users/ssoAuthenticate') && opts.method === 'POST') {
+                    let params = JSON.parse(opts.body);
+                    if (params.token) {
+                        let responseJson = {
+                            id: 'ssoid',
+                            username: 'adoprog'
+                        };
+                        resolve({ ok: true, json: () => responseJson });
+                    } else {
+                        reject('Token is incorrect');
+                    }
 
+                    return;
+                }
 
                 if (url.endsWith('/users/register') && opts.method === 'POST') {
                     let newUser = JSON.parse(opts.body);
