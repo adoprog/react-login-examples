@@ -43,6 +43,7 @@ class RegisterPage extends Component {
     }
 
     render() {
+        const { registering  } = this.props;
         const { user, submitted } = this.state;
         return (
             <div className="col-md-6 col-md-offset-3">
@@ -57,7 +58,7 @@ class RegisterPage extends Component {
                     </div>
                     <div className={'form-group' + (submitted && !user.password ? ' has-error' : '')}>
                         <label htmlFor="password">Password</label>
-                        <input type="password" className="form-control" name="password" onChange={this.handleChange} />
+                        <input type="password" className="form-control password" name="password" onChange={this.handleChange} />
                         {submitted && !user.password &&
                             <div className="help-block">Password is required</div>
                         }
@@ -72,6 +73,8 @@ class RegisterPage extends Component {
     }
 }
 
+export { RegisterPage as TestRegisterPage };
+
 // complete the below function
 function mapStateToProps(state) {
     const { registering } = state.registration;
@@ -80,8 +83,5 @@ function mapStateToProps(state) {
     };
 }
 
-
 const connectedRegisterPage = connect(mapStateToProps)(RegisterPage);
 export { connectedRegisterPage as RegisterPage };
-
-export { connectedRegisterPage as TestRegisterPage };
