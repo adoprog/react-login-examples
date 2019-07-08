@@ -7,8 +7,8 @@ export class HomePage extends Component {
         return (
             <div className="col-md-6 col-md-offset-3">
                 <h2 align="center">Welcome! You have successfully logged in.</h2>
-                <p align="center">
-                // Add a redirection for logout
+                <p>
+                    <Link to="/login">Logout</Link>
                 </p>
             </div>
         );

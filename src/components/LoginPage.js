@@ -5,11 +5,12 @@ import { connect } from 'react-redux';
 
 import { userActions, login } from '../actions';
 
-export class LoginPage extends Component {
+class LoginPage extends Component {
     constructor(props) {
         super(props);
 
         // reset login status
+        this.props.dispatch(userActions.logout());
 
         this.state = {
             username: '',
@@ -22,13 +23,19 @@ export class LoginPage extends Component {
     }
 
     handleChange(e) {
-        this.setState({ [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        this.setState({ [name]: value });
     }
 
     handleSubmit(e) {
-        debugger;
         e.preventDefault();
-        let result = userActions.login({name: e.target.elements[0].value});
+
+        this.setState({ submitted: true });
+        const { username, password } = this.state;
+        const { dispatch } = this.props;
+        if (username && password) {
+            dispatch(userActions.login(username, password));
+        }
     }
 
     render() {
@@ -60,9 +67,14 @@ export class LoginPage extends Component {
     }
 }
 
+export { LoginPage as TestLoginPage };
+
 function mapStateToProps(state) {
-    return {};
+    const { loggingIn } = state.authentication;
+    return {
+        loggingIn
+    };
 }
 
-export { LoginPage as TestLoginPage };
-export default connect(mapStateToProps)(LoginPage)
+const connectedLoginPage = connect(mapStateToProps)(LoginPage);
+export { connectedLoginPage as LoginPage }; 

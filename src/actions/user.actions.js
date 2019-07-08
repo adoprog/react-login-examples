@@ -10,7 +10,21 @@ export const userActions = {
 };
 
 function login(username, password) {
-    // return the promise using fetch which adds to localstorage on resolve
+    return dispatch => {
+        dispatch(request({ username }));
+
+        userService.login(username, password)
+            .then(
+                user => { 
+                    dispatch(success(user));
+                    history.push('/');
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
 
     function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
     function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
@@ -18,11 +32,27 @@ function login(username, password) {
 }
 
 function logout() {
-    // complete this function
+    userService.logout();
+    return { type: userConstants.LOGOUT };
 }
 
 function register(user) {
-    // return the promise using fetch which dispatches appropriately 
+    return dispatch => {
+        dispatch(request(user));
+
+        userService.register(user)
+            .then(
+                user => { 
+                    dispatch(success());
+                    history.push('/login');
+                    dispatch(alertActions.success('Registration successful'));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
 
     function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
     function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
