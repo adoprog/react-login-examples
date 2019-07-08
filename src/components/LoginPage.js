@@ -40,7 +40,7 @@ class LoginPage extends Component {
     }
 
     googleResponse(response) {
-        if(response.token) {
+        if(response.accessToken) {
             const { dispatch } = this.props;
             dispatch(userActions.ssoLogin(response));
         }
